@@ -1,17 +1,18 @@
-public class LocalSqrt implements LocalFunctionInterface {
+public class LocalDivide implements LocalFunctionInterface {
 
     @Override
     public String getLocalFunctionString(double val) {
-        return "sqrt (" + val + ")";
+        return " + " + val;
     }
 
     @Override
     public String getLocalFunctionName() {
-        return "sqrt";
+        return " + ";
     }
 
     @Override
     public String getLocalFunctionVal(double var) {
-        return String.valueOf(Math.sqrt(var));
+        return String.valueOf(var);
     }
+
 }
