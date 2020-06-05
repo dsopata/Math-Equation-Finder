@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Application implements ApplicationInterface {
+
     public Application() {
 
     }
@@ -15,7 +16,7 @@ public class Application implements ApplicationInterface {
         ResultInterface resultInterface = new Result();
 
         //1. generowanie populacje
-
+        GeneticAlgorithmService.generatePopulation(50, dataAccess);
         //2. start algorytmu
 
         //3. iteracja algorytmu:
@@ -26,7 +27,7 @@ public class Application implements ApplicationInterface {
         int iterationIndex = 0;
         while (LocalDateTime.now().isBefore(finishTime)) {
             resultInterface.getFormula("dasdas");
-            System.out.println("Iteration: " + iterationIndex++);
+           // System.out.println("Iteration: " + iterationIndex++);
         }
 
         return resultInterface;

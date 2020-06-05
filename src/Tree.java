@@ -1,7 +1,9 @@
+import nodes.Node;
+
 public class Tree {
 
     private Node root;
-    private int treeLevels = 1;
+    private int height = 0;
 
     public Tree(Node root) {
         this.root = root;
