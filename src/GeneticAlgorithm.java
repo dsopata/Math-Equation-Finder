@@ -48,9 +48,8 @@ public class GeneticAlgorithm {
     }
 
     private  Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
-        Node root = new MathOperatorNode(0);
 
-        Tree tree = new Tree(root, numberOfIndependentVariables);
+        Tree tree = new Tree(numberOfIndependentVariables);
 
         return new Chromosome(tree);
     }
