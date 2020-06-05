@@ -1,11 +1,13 @@
 package nodes;
 
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class Node {
 
     public int level  = 0;
     public Node[] children = new Node[2];
+    private UUID id = UUID.randomUUID();
 
     public Node(int level) {
         this.level = level;
@@ -19,4 +21,7 @@ public abstract class Node {
         children[index] = node;
     }
 
+    public UUID getId() {
+        return id;
+    }
 }

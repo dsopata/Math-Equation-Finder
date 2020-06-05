@@ -1,7 +1,10 @@
 import nodes.LocalFunctionInterface;
+import nodes.MathFunctionNode;
+import nodes.MathOperatorNode.MathOperators;
 import nodes.mathfunctions.*;
 import nodes.MathOperatorNode;
 import nodes.Node;
+import nodes.mathoperators.LocalSqrt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +23,15 @@ public class GeneticAlgorithmService {
     private static int populationSize;
     private static List<Chromosome> population = new ArrayList<>();
 
-    private static final Map<MathOperatorNode.MathOperators, LocalFunctionInterface> doubleBraceMap  = new HashMap<>() {{
-        put(MathOperatorNode.MathOperators.SUM, new LocalSum());
-        put(MathOperatorNode.MathOperators.DIVIDE, new LocalDivide());
-        put(MathOperatorNode.MathOperators.MULTIPLY, new LocalMultiply());
-        put(MathOperatorNode.MathOperators.SUBTRACT, new LocalSubstract());
+    private static final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap  = new HashMap<>() {{
+        put(MathOperators.SUM, new LocalSum());
+        put(MathOperators.DIVIDE, new LocalDivide());
+        put(MathOperators.MULTIPLY, new LocalMultiply());
+        put(MathOperators.SUBTRACT, new LocalSubstract());
+    }};
+
+    private static final Map<MathFunctionNode.MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
+        put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
     }};
 
     public  void startGeneticAlgorithm() {
@@ -41,6 +48,9 @@ public class GeneticAlgorithmService {
 
     private static Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
         Node root = new MathOperatorNode(0);
+        int numberOfSamples = dataAccess.getNumberOfExperimentalPoints();
+
+
         Tree tree = new Tree(root);
 
 
