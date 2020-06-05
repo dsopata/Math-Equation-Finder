@@ -1,3 +1,5 @@
+import nodes.LocalFunctionInterface;
+import nodes.mathfunctions.*;
 import nodes.MathOperatorNode;
 import nodes.Node;
 
@@ -16,7 +18,7 @@ public class GeneticAlgorithmService {
     public static AtomicBoolean breakLoop = new AtomicBoolean(false);
 
     private static int populationSize;
-    private static List<Tree> population = new ArrayList<>();
+    private static List<Chromosome> population = new ArrayList<>();
 
     private static final Map<MathOperatorNode.MathOperators, LocalFunctionInterface> doubleBraceMap  = new HashMap<>() {{
         put(MathOperatorNode.MathOperators.SUM, new LocalSum());
@@ -33,15 +35,16 @@ public class GeneticAlgorithmService {
     public static void generatePopulation(int populationSize, ExperimentalDataAccessIntereface dataAccess) {
         System.out.println("Generating population...");
         for(int a = 0; a < populationSize; a++) {
-            population.add(generateChromosome());
+            population.add(generateChromosome(dataAccess));
         }
     }
 
-    private static Tree generateChromosome() {
+    private static Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
         Node root = new MathOperatorNode(0);
         Tree tree = new Tree(root);
 
-        return tree;
+
+        return new Chromosome(tree);
     }
 
     private  void printoutResult() {

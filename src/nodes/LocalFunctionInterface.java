@@ -1,3 +1,5 @@
+package nodes;
+
 public interface LocalFunctionInterface {
 
     String getLocalFunctionString(double val);

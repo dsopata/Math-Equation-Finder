@@ -1,3 +1,7 @@
+package nodes.mathoperators;
+
+import nodes.LocalFunctionInterface;
+
 public class LocalSqrt implements LocalFunctionInterface {
 
     @Override

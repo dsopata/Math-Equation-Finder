@@ -1,4 +1,8 @@
-public class LocalSum implements LocalFunctionInterface {
+package nodes.mathfunctions;
+
+import nodes.LocalFunctionInterface;
+
+public class LocalSubstract implements LocalFunctionInterface {
 
     @Override
     public String getLocalFunctionString(double val) {

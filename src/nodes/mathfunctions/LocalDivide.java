@@ -1,4 +1,8 @@
-public class LocalSubstract implements LocalFunctionInterface {
+package nodes.mathfunctions;
+
+import nodes.LocalFunctionInterface;
+
+public class LocalDivide implements LocalFunctionInterface {
 
     @Override
     public String getLocalFunctionString(double val) {
@@ -14,4 +18,5 @@ public class LocalSubstract implements LocalFunctionInterface {
     public String getLocalFunctionVal(double var) {
         return String.valueOf(var);
     }
+
 }
