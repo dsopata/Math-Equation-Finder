@@ -13,7 +13,6 @@ public abstract class Node {
         this.level = level;
     }
 
-
     public void setChild(int index, Node node) throws Exception {
         if(index > 1 && index < 0) {
             throw new Exception("incorrect node child index");

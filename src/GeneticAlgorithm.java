@@ -13,46 +13,44 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class GeneticAlgorithmService {
+public class GeneticAlgorithm {
 
-    private static final int MAXIMUM_TREE_HEIGHT = 6;
-    private static final int MINIMAL_TREE_HEIGHT = 3;
+    public  AtomicBoolean breakLoop = new AtomicBoolean(false);
 
-    public static AtomicBoolean breakLoop = new AtomicBoolean(false);
+    private  int populationSize;
+    private  List<Chromosome> population = new ArrayList<>();
+    private final int numberOfExperimentalPoints;
+    private final int numberOfIndependentVariables;
 
-    private static int populationSize;
-    private static List<Chromosome> population = new ArrayList<>();
-
-    private static final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap  = new HashMap<>() {{
+    private  final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap  = new HashMap<>() {{
         put(MathOperators.SUM, new LocalSum());
         put(MathOperators.DIVIDE, new LocalDivide());
         put(MathOperators.MULTIPLY, new LocalMultiply());
         put(MathOperators.SUBTRACT, new LocalSubstract());
     }};
 
-    private static final Map<MathFunctionNode.MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
+    private  final Map<MathFunctionNode.MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
         put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
     }};
 
-    public  void startGeneticAlgorithm() {
-
+    public GeneticAlgorithm(int numberOfExperimentalPoints, int numberOfIndependentVariables) {
+        this.numberOfExperimentalPoints = numberOfExperimentalPoints;
+        this.numberOfIndependentVariables = numberOfIndependentVariables;
     }
 
 
-    public static void generatePopulation(int populationSize, ExperimentalDataAccessIntereface dataAccess) {
+    public  void generatePopulation(int populationSize, ExperimentalDataAccessIntereface dataAccess) {
         System.out.println("Generating population...");
+
         for(int a = 0; a < populationSize; a++) {
             population.add(generateChromosome(dataAccess));
         }
     }
 
-    private static Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
+    private  Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
         Node root = new MathOperatorNode(0);
-        int numberOfSamples = dataAccess.getNumberOfExperimentalPoints();
 
-
-        Tree tree = new Tree(root);
-
+        Tree tree = new Tree(root, numberOfIndependentVariables);
 
         return new Chromosome(tree);
     }

@@ -18,12 +18,6 @@ public class MathOperatorNode extends Node {
         this.mathOperator = randomMathOperator();
     }
 
-    @Override
-    public void setChild(int index, Node node) throws Exception {
-        super.setChild(index, node);
-    }
-
-
     private static MathOperators randomMathOperator() {
         return MathOperators.values()[new Random().nextInt(MathOperators.values().length)];
     }

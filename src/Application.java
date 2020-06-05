@@ -14,7 +14,8 @@ public class Application implements ApplicationInterface {
         ResultInterface resultInterface = new Result();
 
         //1. generowanie populacje
-        GeneticAlgorithmService.generatePopulation(50, dataAccess);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess.getNumberOfExperimentalPoints(), dataAccess.getNumberOfIndependentVariables());
+        geneticAlgorithm.generatePopulation(50, dataAccess);
         //2. start algorytmu
 
         //3. iteracja algorytmu:

@@ -16,11 +16,6 @@ public class MathFunctionNode extends Node {
         super(level);
     }
 
-    @Override
-    public void setChild(int index, Node node) throws Exception {
-        super.setChild(index, node);
-    }
-
     private static MathFunctions randomMathOperator() {
         return MathFunctions.values()[new Random().nextInt(MathFunctions.values().length)];
     }
