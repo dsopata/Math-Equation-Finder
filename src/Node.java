@@ -4,6 +4,10 @@ public class Node {
     public Node[] children = new Node[2];
     public LocalFunctionInterface localFunction;
 
+    enum NodeType {
+
+    }
+
     private Node(Node child1, LocalFunctionInterface localFunction) {
         children[0] = child1;
         this.localFunction = localFunction;
@@ -18,5 +22,13 @@ public class Node {
         this(child1, level, localFunction);
         children[1] = child2;
     }
+
+    public void setChild(int index, Node node) throws Exception {
+        if(index > 1 && index < 0) {
+            throw new Exception("incorrect node child index");
+        }
+        children[index] = node;
+    }
+
 
 }

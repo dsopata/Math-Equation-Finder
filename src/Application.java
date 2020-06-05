@@ -1,20 +1,37 @@
+import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Application implements ApplicationInterface {
-
-    private ExperimentalDataAccessIntereface experimentalDataAccessIntereface;
-    private ResultInterface resultInterface;
-
     public Application() {
-        experimentalDataAccessIntereface = new ExperimentalDataAccess();
-        resultInterface = new Result();
+
     }
 
     @Override
     public ResultInterface execute(ExperimentalDataAccessIntereface dataAccess, long maxWorkTime, TimeUnit timeUnit) {
-        return null;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime finishTime = now.plus(maxWorkTime, timeUnit.toChronoUnit());
+        ResultInterface resultInterface = new Result();
+
+        //1. generowanie populacje
+
+        //2. start algorytmu
+
+        //3. iteracja algorytmu:
+        //krzyzowanie
+        //mutowanie
+        //selekcja
+
+        int iterationIndex = 0;
+        while (LocalDateTime.now().isBefore(finishTime)) {
+            resultInterface.getFormula("dasdas");
+            System.out.println("Iteration: " + iterationIndex++);
+        }
+
+        return resultInterface;
     }
-
-
-
 }
+
+
+

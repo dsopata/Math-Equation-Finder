@@ -1,49 +1,49 @@
 /**
- * Interfejs umoĹźliwiajÄcy dostÄp do danych doĹwiadczalnych.
+ * Interfejs umożliwiający dostęp do danych doświadczalnych.
  *
  */
 public interface ExperimentalDataAccessIntereface {
 
-    /**
-     * Metoda zwraca liczbÄ punktĂłw doĹwiadczalnych.
-     *
-     * @return liczba punktĂłw doĹwiadczalnych.
-     */
-    public int getNumberOfExperimentalPoints();
+	/**
+	 * Metoda zwraca liczbę punktów doświadczalnych.
+	 * 
+	 * @return liczba punktów doświadczalnych.
+	 */
+	public int getNumberOfExperimentalPoints();
 
-    /**
-     * Metoda zwraca liczbÄ zmiennych niezaleĹźnych.
-     *
-     * @return liczba zmiennych niezaleĹźnych.
-     */
-    public int getNumberOfIndependentVariables();
+	/**
+	 * Metoda zwraca liczbę zmiennych niezależnych.
+	 * 
+	 * @return liczba zmiennych niezależnych.
+	 */
+	public int getNumberOfIndependentVariables();
 
-    /**
-     * Metoda zwraca tablicÄ wartoĹci zmiennych niezaleĹźnych. Tablica ma rozmiar
-     * getNumberOfExperimentalPoints().
-     *
-     * @param dataPointIndex indeks (numer) punktu doĹwiadczalnego. Dozwolone sÄ
-     *                       wartoĹci od 0 do getNumberOfExperimentalPoints()-1.
-     *                       Rozmiar tablicy jest identyczny dla wszystkich punktĂłw
-     *                       doĹwiadczalnych i wynosi
-     *                       getNumberOfIndependentVariables();
-     * @return tablica z wartoĹciami zmiennych niezaleĹźnych dla punktu
-     *         doĹwiadczalnego numer dataPointIndex.
-     * @throws IndexOutOfBoundsException wyjÄtek informujÄcy o wyjĹcie poza
-     *                                   dozwolony zakres indeksĂłw punktĂłw
-     *                                   doĹwiadczalnych.
-     */
-    public double[] getIndependentVariables(int dataPointIndex) throws IndexOutOfBoundsException;
+	/**
+	 * Metoda zwraca tablicę wartości zmiennych niezależnych. Tablica ma rozmiar
+	 * getNumberOfExperimentalPoints().
+	 * 
+	 * @param dataPointIndex indeks (numer) punktu doświadczalnego. Dozwolone są
+	 *                       wartości od 0 do getNumberOfExperimentalPoints()-1.
+	 *                       Rozmiar tablicy jest identyczny dla wszystkich punktów
+	 *                       doświadczalnych i wynosi
+	 *                       getNumberOfIndependentVariables();
+	 * @return tablica z wartościami zmiennych niezależnych dla punktu
+	 *         doświadczalnego numer dataPointIndex.
+	 * @throws IndexOutOfBoundsException wyjątek informujący o wyjście poza
+	 *                                   dozwolony zakres indeksów punktów
+	 *                                   doświadczalnych.
+	 */
+	public double[] getIndependentVariables(int dataPointIndex) throws IndexOutOfBoundsException;
 
-    /**
-     * Metoda zwraca wartoĹÄ zmiennej zaleĹźnej.
-     *
-     * @param dataPointIndex indeks punktu doĹwiadczalnego
-     * @return wartoĹÄ zmiennej zaleĹźnej
-     * @throws IndexOutOfBoundsException wyjÄtek informujÄcy o wyjĹcie poza
-     *                                   dozwolony zakres indeksĂłw punktĂłw
-     *                                   doĹwiadczalnych.
-     */
-    public double getDependentVariable(int dataPointIndex) throws IndexOutOfBoundsException;
+	/**
+	 * Metoda zwraca wartość zmiennej zależnej.
+	 * 
+	 * @param dataPointIndex indeks punktu doświadczalnego
+	 * @return wartość zmiennej zależnej
+	 * @throws IndexOutOfBoundsException wyjątek informujący o wyjście poza
+	 *                                   dozwolony zakres indeksów punktów
+	 *                                   doświadczalnych.
+	 */
+	public double getDependentVariable(int dataPointIndex) throws IndexOutOfBoundsException;
 
 }
