@@ -8,7 +8,6 @@ import java.util.Random;
 public class Tree {
 
     private static final int MAXIMUM_TREE_HEIGHT = 6;
-    private static final int MINIMAL_TREE_HEIGHT = 1;
     private static final int MAXIMUM_RANDOM_BOUND = 100;
 
     private static final float MATH_OPERATOR_NODE_PROPABILITY = .03f;
@@ -18,10 +17,11 @@ public class Tree {
     private Node root;
     private int maximumHeight;
     private Random random;
+    private int assignedIndependendVariables;
 
     public Tree(int numberOfIndependentVariables) {
         this.random = new Random();
-
+        this.assignedIndependendVariables = 0;
         int level = 0;
         this.root = new MathOperatorNode(level);
         this.maximumHeight = MAXIMUM_TREE_HEIGHT < numberOfIndependentVariables ? numberOfIndependentVariables+1 : MAXIMUM_TREE_HEIGHT;
@@ -42,6 +42,9 @@ public class Tree {
             }
             Node child =  new ValueNode(nextLevel, random.nextDouble());
             parent.setChild(0, child);
+            if (parent.getNodeType() == Node.NodeType.MATH_OPERATOR) {
+                parent.setChild(1, new ValueNode(nextLevel, random.nextDouble()));
+            }
             return;
         }
 
@@ -89,8 +92,22 @@ public class Tree {
         return (this.root).toString();
     }
 
+    public void setIndependentVariablesInTree(int numberOfIndependentVariables) {
+        setIndependentVariables(root,  numberOfIndependentVariables);
+    }
 
-    public Node getRoot() {
-        return root;
+    private void setIndependentVariables(Node root, int numberOfIndependentVariables) {
+       if(root == null || assignedIndependendVariables >= numberOfIndependentVariables) {
+           return;
+       }
+       if(root.getNodeType().equals(Node.NodeType.VALUE)) {
+           ((ValueNode)root).setVariableId(assignedIndependendVariables++);
+       }
+       if(root.children[0] != null) {
+           setIndependentVariables(root.children[0], numberOfIndependentVariables);
+       }
+        if(root.children[1] != null) {
+            setIndependentVariables(root.children[1], numberOfIndependentVariables);
+        }
     }
 }

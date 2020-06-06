@@ -1,6 +1,8 @@
 package nodes;
 
 ;
+import nodes.mathoperators.LocalExp;
+import nodes.mathoperators.LocalSin;
 import nodes.mathoperators.LocalSqrt;
 
 import java.util.HashMap;
@@ -12,11 +14,15 @@ public class MathFunctionNode extends Node {
     private MathFunctions mathFunction;
 
     public enum MathFunctions {
-        SQRT
+        SQRT,
+        EXP,
+        SIN
     }
 
     private  final Map<MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
         put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
+        put(MathFunctionNode.MathFunctions.EXP, new LocalExp());
+        put(MathFunctionNode.MathFunctions.SIN, new LocalSin());
     }};
 
 

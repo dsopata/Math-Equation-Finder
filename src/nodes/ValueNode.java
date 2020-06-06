@@ -15,7 +15,10 @@ public class ValueNode extends Node {
 
     @Override
     public String toString() {
-        return (variableId != -1) ? String.valueOf(variableId) : String.valueOf(value);
+        return (variableId != -1) ? "x" + String.valueOf(variableId) : String.valueOf(value);
     }
 
+    public void setVariableId(int id) {
+        this.variableId = id;
+    }
 }

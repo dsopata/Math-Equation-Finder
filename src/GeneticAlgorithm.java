@@ -1,15 +1,6 @@
-import nodes.LocalFunctionInterface;
-import nodes.MathFunctionNode;
-import nodes.MathOperatorNode.MathOperators;
-import nodes.mathfunctions.*;
-import nodes.MathOperatorNode;
-import nodes.Node;
-import nodes.mathoperators.LocalSqrt;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -40,11 +31,9 @@ public class GeneticAlgorithm {
     private  Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
 
         Tree tree = new Tree(numberOfIndependentVariables);
+        tree.setIndependentVariablesInTree(dataAccess.getNumberOfIndependentVariables());
         System.out.println(tree.toString());
         return new Chromosome(tree);
     }
 
-    private  void printoutResult() {
-
-    }
 }
