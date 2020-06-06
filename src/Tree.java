@@ -111,4 +111,8 @@ public class Tree {
             setIndependentVariables(root.children[1], numberOfIndependentVariables);
         }
     }
+
+    public Node getRoot() {
+        return root;
+    }
 }

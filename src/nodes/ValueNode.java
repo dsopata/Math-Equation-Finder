@@ -2,7 +2,6 @@ package nodes;
 
 public class ValueNode extends Node {
 
-    boolean isVariableNode = false;
     int variableId = -1;
     double value;
 
