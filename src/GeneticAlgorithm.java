@@ -24,17 +24,6 @@ public class GeneticAlgorithm {
     private final int numberOfExperimentalPoints;
     private final int numberOfIndependentVariables;
 
-    private  final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap = new HashMap<>() {{
-        put(MathOperators.SUM, new LocalSum());
-        put(MathOperators.DIVIDE, new LocalDivide());
-        put(MathOperators.MULTIPLY, new LocalMultiply());
-        put(MathOperators.SUBTRACT, new LocalSubstract());
-    }};
-
-    private  final Map<MathFunctionNode.MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
-        put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
-    }};
-
     public GeneticAlgorithm(int numberOfExperimentalPoints, int numberOfIndependentVariables) {
         this.numberOfExperimentalPoints = numberOfExperimentalPoints;
         this.numberOfIndependentVariables = numberOfIndependentVariables;
@@ -51,7 +40,7 @@ public class GeneticAlgorithm {
     private  Chromosome generateChromosome(ExperimentalDataAccessIntereface dataAccess) {
 
         Tree tree = new Tree(numberOfIndependentVariables);
-
+        System.out.println(tree.toString());
         return new Chromosome(tree);
     }
 

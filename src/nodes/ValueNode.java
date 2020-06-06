@@ -4,13 +4,18 @@ package nodes;
 public class ValueNode extends Node {
 
     boolean isVariableNode = false;
-    int variableId;
+    int variableId = -1;
     double value;
 
-    public ValueNode(int level) {
+    public ValueNode(int level, double value) {
         super(level);
         nodeType = NodeType.VALUE;
+        this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return (variableId != -1) ? String.valueOf(variableId) : String.valueOf(value);
+    }
 
 }

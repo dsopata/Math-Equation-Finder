@@ -5,11 +5,6 @@ import nodes.LocalFunctionInterface;
 public class LocalSqrt implements LocalFunctionInterface {
 
     @Override
-    public String getLocalFunctionString(double val) {
-        return "sqrt (" + val + ")";
-    }
-
-    @Override
     public String getLocalFunctionName() {
         return "sqrt";
     }

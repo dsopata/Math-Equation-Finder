@@ -5,13 +5,8 @@ import nodes.LocalFunctionInterface;
 public class LocalMultiply implements LocalFunctionInterface {
 
     @Override
-    public String getLocalFunctionString(double val) {
-        return " + " + val;
-    }
-
-    @Override
     public String getLocalFunctionName() {
-        return " + ";
+        return " * ";
     }
 
     @Override

@@ -1,23 +1,38 @@
 package nodes;
 
+;
+import nodes.mathoperators.LocalSqrt;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MathFunctionNode extends Node {
 
+    private MathFunctions mathFunction;
+
     public enum MathFunctions {
-        SQRT,
-        ABS,
-        EXP,
-        SIN,
-        COS
+        SQRT
     }
+
+    private  final Map<MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
+        put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
+    }};
+
 
     public MathFunctionNode(int level) {
         super(level);
         nodeType = NodeType.MATH_FUNCTION;
+        children = new Node[2];
+        mathFunction = randomMathOperator();
     }
 
     private static MathFunctions randomMathOperator() {
         return MathFunctions.values()[new Random().nextInt(MathFunctions.values().length)];
+    }
+
+    @Override
+    public String toString() {
+        return mathFunctionsMap.get(mathFunction).getLocalFunctionName() + "(" + children[0].toString() + ")";
     }
 }
