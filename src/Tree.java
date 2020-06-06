@@ -13,10 +13,9 @@ public class Tree {
 
     private static final float MATH_OPERATOR_NODE_PROPABILITY = .03f;
     private static final float MATH_FUNCTION_NODE_PROPABILITY = .05f;
-    private static final float VALUE_NODE_PROPABILITY = .1f;
+    private static final float VALUE_NODE_PROPABILITY = .07f;
 
     private Node root;
-    private int height = 0;
     private int maximumHeight;
     private Random random;
 
@@ -87,25 +86,9 @@ public class Tree {
 
     @Override
     public String toString() {
-        return toString(this.root);
+        return (this.root).toString();
     }
 
-    private String toString(Node root)
-    {
-        String str = "";
-        if (root == null) {
-            return str;
-        }
-        if(root.children[0] != null && root.children[0].getNodeType() != Node.NodeType.VALUE)
-            str += toString(root.children[0]);
-
-       str += root.toString();
-
-        if(root.children[1] != null&& root.children[1].getNodeType() != Node.NodeType.VALUE)
-            str +=  toString(root.children[1]);
-
-        return str;
-    }
 
     public Node getRoot() {
         return root;
