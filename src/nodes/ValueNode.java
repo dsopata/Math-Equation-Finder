@@ -1,6 +1,5 @@
 package nodes;
 
-
 public class ValueNode extends Node {
 
     boolean isVariableNode = false;
@@ -15,8 +14,14 @@ public class ValueNode extends Node {
 
     @Override
     public String toString() {
-        return (variableId != -1) ? "x" + String.valueOf(variableId) : String.valueOf(value);
+        return (variableId != -1) ? "x" + variableId : String.valueOf(value);
     }
+
+    @Override
+    public double calculate(double[] independentVariables) {
+        return (variableId != -1) ? independentVariables[variableId] : value;
+    }
+
 
     public void setVariableId(int id) {
         this.variableId = id;

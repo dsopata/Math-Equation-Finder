@@ -33,4 +33,6 @@ public abstract class Node {
     public NodeType getNodeType() {
         return nodeType;
     }
+
+    public abstract double calculate(double[] independentVariables);
 }

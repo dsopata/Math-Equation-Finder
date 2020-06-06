@@ -1,7 +1,6 @@
 package nodes.mathoperators;
 
 import nodes.LocalFunctionInterface;
-
 public class LocalExp implements LocalFunctionInterface {
 
     @Override

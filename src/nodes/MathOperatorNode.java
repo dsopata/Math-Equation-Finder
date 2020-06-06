@@ -35,6 +35,11 @@ public class MathOperatorNode extends Node {
     }
 
     @Override
+    public double calculate(double[] independentVariables) {
+        return  mathOperatorsMap.get(mathOperator).getLocalFunctionVal(children[0].calculate(independentVariables), children[1].calculate(independentVariables));
+    }
+
+    @Override
     public String toString() {
         return "(" + children[0].toString() + mathOperatorsMap.get(mathOperator).getLocalFunctionName() + children[1].toString() + ")";
     }

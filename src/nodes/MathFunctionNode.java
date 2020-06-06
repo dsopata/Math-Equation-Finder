@@ -38,6 +38,11 @@ public class MathFunctionNode extends Node {
     }
 
     @Override
+    public double calculate(double[] independentVariables) {
+        return  mathFunctionsMap.get(mathFunction).getLocalFunctionVal(children[0].calculate(independentVariables));
+    }
+
+    @Override
     public String toString() {
         return mathFunctionsMap.get(mathFunction).getLocalFunctionName() + "(" + children[0].toString() + ")";
     }
