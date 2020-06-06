@@ -16,6 +16,7 @@ public class MathOperatorNode extends Node {
     public MathOperatorNode(int level) {
         super(level);
         this.mathOperator = randomMathOperator();
+        nodeType = NodeType.MATH_OPERATOR;
     }
 
     private static MathOperators randomMathOperator() {

@@ -14,6 +14,7 @@ public class MathFunctionNode extends Node {
 
     public MathFunctionNode(int level) {
         super(level);
+        nodeType = NodeType.MATH_FUNCTION;
     }
 
     private static MathFunctions randomMathOperator() {

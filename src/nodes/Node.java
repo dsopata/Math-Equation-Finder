@@ -8,6 +8,7 @@ public abstract class Node {
     public int level  = 0;
     public Node[] children = new Node[2];
     private UUID id = UUID.randomUUID();
+    NodeType nodeType;
 
     public Node(int level) {
         this.level = level;
@@ -22,5 +23,15 @@ public abstract class Node {
 
     public UUID getId() {
         return id;
+    }
+
+    public enum NodeType {
+        MATH_FUNCTION,
+        MATH_OPERATOR,
+        VALUE
+    }
+
+    public NodeType getNodeType() {
+        return nodeType;
     }
 }

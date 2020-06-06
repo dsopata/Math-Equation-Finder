@@ -9,6 +9,7 @@ public class ValueNode extends Node {
 
     public ValueNode(int level) {
         super(level);
+        nodeType = NodeType.VALUE;
     }
 
 

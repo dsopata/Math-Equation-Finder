@@ -3,6 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Application implements ApplicationInterface {
 
+
     public Application() {
 
     }
@@ -15,7 +16,7 @@ public class Application implements ApplicationInterface {
 
         //1. generowanie populacje
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess.getNumberOfExperimentalPoints(), dataAccess.getNumberOfIndependentVariables());
-        geneticAlgorithm.generatePopulation(50, dataAccess);
+        geneticAlgorithm.generatePopulation(dataAccess);
         //2. start algorytmu
 
         //3. iteracja algorytmu:

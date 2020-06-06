@@ -15,14 +15,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GeneticAlgorithm {
 
-    public  AtomicBoolean breakLoop = new AtomicBoolean(false);
+   private static final int POPULATION_SIZE = 50;
+
+   public  AtomicBoolean breakLoop = new AtomicBoolean(false);
 
     private  int populationSize;
     private  List<Chromosome> population = new ArrayList<>();
     private final int numberOfExperimentalPoints;
     private final int numberOfIndependentVariables;
 
-    private  final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap  = new HashMap<>() {{
+    private  final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap = new HashMap<>() {{
         put(MathOperators.SUM, new LocalSum());
         put(MathOperators.DIVIDE, new LocalDivide());
         put(MathOperators.MULTIPLY, new LocalMultiply());
@@ -38,11 +40,10 @@ public class GeneticAlgorithm {
         this.numberOfIndependentVariables = numberOfIndependentVariables;
     }
 
-
-    public  void generatePopulation(int populationSize, ExperimentalDataAccessIntereface dataAccess) {
+    public  void generatePopulation(ExperimentalDataAccessIntereface dataAccess) {
         System.out.println("Generating population...");
 
-        for(int a = 0; a < populationSize; a++) {
+        for(int a = 0; a < POPULATION_SIZE; a++) {
             population.add(generateChromosome(dataAccess));
         }
     }
@@ -57,5 +58,4 @@ public class GeneticAlgorithm {
     private  void printoutResult() {
 
     }
-
 }
