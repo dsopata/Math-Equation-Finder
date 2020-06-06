@@ -12,7 +12,7 @@ public class Tree {
 
     private static final float MATH_OPERATOR_NODE_PROPABILITY = .03f;
     private static final float MATH_FUNCTION_NODE_PROPABILITY = .05f;
-    private static final float VALUE_NODE_PROPABILITY = .07f;
+    private static final float VALUE_NODE_PROPABILITY = .055f;
 
     private Node root;
     private int maximumHeight;
@@ -102,6 +102,7 @@ public class Tree {
        }
        if(root.getNodeType().equals(Node.NodeType.VALUE)) {
            ((ValueNode)root).setVariableId(assignedIndependendVariables++);
+           return;
        }
        if(root.children[0] != null) {
            setIndependentVariables(root.children[0], numberOfIndependentVariables);

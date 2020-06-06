@@ -16,7 +16,7 @@ public class MathOperatorNode extends Node {
         DIVIDE
     }
 
-    private static final Map<MathOperators, LocalFunctionInterface> mathOperatorsMap = new HashMap<>() {{
+    private static final Map<MathOperators, LocalOperatorInterface> mathOperatorsMap = new HashMap<>() {{
         put(MathOperators.SUM, new LocalSum());
         put(MathOperators.DIVIDE, new LocalDivide());
         put(MathOperators.MULTIPLY, new LocalMultiply());

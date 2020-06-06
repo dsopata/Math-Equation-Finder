@@ -1,8 +1,8 @@
 package nodes.mathfunctions;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalOperatorInterface;
 
-public class LocalMultiply implements LocalFunctionInterface {
+public class LocalMultiply implements LocalOperatorInterface {
 
     @Override
     public String getLocalFunctionName() {
@@ -10,7 +10,7 @@ public class LocalMultiply implements LocalFunctionInterface {
     }
 
     @Override
-    public String getLocalFunctionVal(double var) {
-        return String.valueOf(var);
+    public double getLocalFunctionVal(double var1, double var2) {
+        return var1 * var2;
     }
 }

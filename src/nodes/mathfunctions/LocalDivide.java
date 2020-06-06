@@ -1,8 +1,8 @@
 package nodes.mathfunctions;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalOperatorInterface;
 
-public class LocalDivide implements LocalFunctionInterface {
+public class LocalDivide implements LocalOperatorInterface {
 
     @Override
     public String getLocalFunctionName() {
@@ -10,8 +10,11 @@ public class LocalDivide implements LocalFunctionInterface {
     }
 
     @Override
-    public String getLocalFunctionVal(double var) {
-        return String.valueOf(var);
+    public double getLocalFunctionVal(double var1, double var2) {
+        if(var2 == 0) {
+            return 0d;
+        }
+        return var1 / var2;
     }
 
 }

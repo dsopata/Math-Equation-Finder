@@ -1,8 +1,8 @@
 package nodes.mathfunctions;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalOperatorInterface;
 
-public class LocalSum implements LocalFunctionInterface {
+public class LocalSum implements LocalOperatorInterface {
 
     @Override
     public String getLocalFunctionName() {
@@ -10,7 +10,7 @@ public class LocalSum implements LocalFunctionInterface {
     }
 
     @Override
-    public String getLocalFunctionVal(double var) {
-        return String.valueOf(var);
+    public double getLocalFunctionVal(double var1, double var2) {
+        return var1 + var2;
     }
 }

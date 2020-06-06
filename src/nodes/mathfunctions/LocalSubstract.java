@@ -1,8 +1,8 @@
 package nodes.mathfunctions;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalOperatorInterface;
 
-public class LocalSubstract implements LocalFunctionInterface {
+public class LocalSubstract implements LocalOperatorInterface {
 
 
     @Override
@@ -11,7 +11,7 @@ public class LocalSubstract implements LocalFunctionInterface {
     }
 
     @Override
-    public String getLocalFunctionVal(double var) {
-        return String.valueOf(var);
+    public double getLocalFunctionVal(double var1, double var2) {
+        return var1 - var2;
     }
 }

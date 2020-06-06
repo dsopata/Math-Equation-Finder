@@ -10,7 +10,7 @@ public class LocalSqrt implements LocalFunctionInterface {
     }
 
     @Override
-    public String getLocalFunctionVal(double var) {
-        return String.valueOf(Math.sqrt(var));
+    public double getLocalFunctionVal(double var) {
+        return Math.sqrt(var);
     }
 }

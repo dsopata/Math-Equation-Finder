@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GeneticAlgorithm {
 
-   private static final int POPULATION_SIZE = 50;
+   private static final int POPULATION_SIZE = 200;
 
    public  AtomicBoolean breakLoop = new AtomicBoolean(false);
 
