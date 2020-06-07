@@ -21,7 +21,6 @@ public class ValueNode extends Node {
         return (variableId != -1) ? independentVariables[variableId] : value;
     }
 
-
     public void setVariableId(int id) {
         this.variableId = id;
     }

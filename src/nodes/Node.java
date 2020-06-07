@@ -7,6 +7,8 @@ public abstract class Node {
     public int level  = 0;
     public Node[] children = new Node[2];
     private UUID id = UUID.randomUUID();
+    private Node parent;
+
     NodeType nodeType;
 
     public Node(int level) {
@@ -24,6 +26,7 @@ public abstract class Node {
         return id;
     }
 
+
     public enum NodeType {
         MATH_FUNCTION,
         MATH_OPERATOR,
@@ -35,4 +38,11 @@ public abstract class Node {
     }
 
     public abstract double calculate(double[] independentVariables);
+
+    //public abstract void mutate();
+
+
+
+
+
 }

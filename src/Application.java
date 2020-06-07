@@ -15,17 +15,16 @@ public class Application implements ApplicationInterface {
         ResultInterface resultInterface = new Result();
 
         //1. generowanie populacje
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess.getNumberOfExperimentalPoints(), dataAccess.getNumberOfIndependentVariables());
-        geneticAlgorithm.generatePopulation(dataAccess);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess);
+        geneticAlgorithm.generatePopulation();
         //2. start algorytmu
 
         //3. iteracja algorytmu:
-        //krzyzowanie
-        //mutowanie
-        //selekcja
+
 
         int iterationIndex = 0;
         while (LocalDateTime.now().isBefore(finishTime)) {
+            geneticAlgorithm.nextGeneration();
             resultInterface.getFormula("dasdas");
            // System.out.println("Iteration: " + iterationIndex++);
         }

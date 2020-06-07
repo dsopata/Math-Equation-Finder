@@ -18,6 +18,8 @@ public class Tree {
     private int maximumHeight;
     private Random random;
     private int assignedIndependendVariables;
+    private int size = 0;
+    private int randomTravelsalCounter = 0;
 
     public Tree(int numberOfIndependentVariables) {
         this.random = new Random();
@@ -28,6 +30,7 @@ public class Tree {
 
         try {
             this.generateTree( root, level);
+            size = size(root);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -114,5 +117,68 @@ public class Tree {
 
     public Node getRoot() {
         return root;
+    }
+
+    public void mutate() {
+        //root.mutate();
+    }
+
+    public int size() {
+        if(size == 0) {
+            this.size = size(root);
+        }
+        return size;
+    }
+
+    private int size(Node node) {
+        if (node == null) return(0);
+        else {
+            return(size(node.children[0]) + 1 + size(node.children[1]));
+        }
+    }
+
+    public Node getRandomNode() {
+        randomTravelsalCounter = 0;
+        int randomNum = random.nextInt(size);
+        return getRandomTraversal(root, randomNum);
+    }
+
+    private Node getRandomTraversal(Node node, int randomNum) {
+        randomTravelsalCounter++;
+
+        if(randomTravelsalCounter == randomNum)
+            return node;
+
+        if(node.children[0] != null)
+            return getRandomTraversal(node.children[0], randomNum);
+
+        if(node.children[1] != null)
+            return getRandomTraversal(node.children[1], randomNum);
+
+        return null;
+    }
+
+    public void replaceNode(Node node1, Node node2) {
+        try {
+            replaceNode(root, node1, node2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void replaceNode(Node root, Node node1, Node node2) throws Exception {
+        if(root.children[0] == node1) {
+            root.setChild(0, node2);
+            return;
+        } else if(root.children[0] != null) {
+            replaceNode(root.children[0], node1, node2);
+        }
+
+        if(root.children[1] == node1) {
+            root.setChild(1, node2);
+            return;
+        } else if(root.children[1] != null) {
+            replaceNode(root.children[1], node1, node2);
+        }
     }
 }
