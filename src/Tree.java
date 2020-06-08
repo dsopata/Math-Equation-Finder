@@ -3,6 +3,8 @@ import nodes.MathOperatorNode;
 import nodes.Node;
 import nodes.ValueNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class Tree {
@@ -25,7 +27,7 @@ public class Tree {
         this.random = new Random();
         this.assignedIndependendVariables = 0;
         int level = 0;
-        this.root = new MathOperatorNode(level);
+        this.root = new MathOperatorNode(level, null);
         this.maximumHeight = MAXIMUM_TREE_HEIGHT < numberOfIndependentVariables ? numberOfIndependentVariables+1 : MAXIMUM_TREE_HEIGHT;
 
         try {
@@ -36,35 +38,33 @@ public class Tree {
         }
     }
 
-    private void generateTree( Node parent, int level) throws Exception {
+    private void generateTree(Node parent, int level) throws Exception {
         int nextLevel = level + 1;
 
         if(maximumHeight <= nextLevel) {
             if (parent.getNodeType() == Node.NodeType.VALUE) {
                 return;
             }
-            Node child =  new ValueNode(nextLevel, random.nextDouble());
+            Node child =  new ValueNode(nextLevel, random.nextDouble(), parent);
             parent.setChild(0, child);
             if (parent.getNodeType() == Node.NodeType.MATH_OPERATOR) {
-                parent.setChild(1, new ValueNode(nextLevel, random.nextDouble()));
+                parent.setChild(1, new ValueNode(nextLevel, random.nextDouble(), parent));
             }
+
             return;
         }
 
         if(parent.getNodeType() != Node.NodeType.VALUE) {
             //left
-            Node child1 = randomTypeChild(nextLevel);
+            Node child1 = randomTypeChild(nextLevel, parent);
             parent.setChild(0, child1);
             generateTree(child1, nextLevel);
         } else {
-            //left value child
-            Node child =  new ValueNode(nextLevel, random.nextDouble());
-            parent.setChild(0, child);
             return;
         }
         if(parent.getNodeType() == Node.NodeType.MATH_OPERATOR) {
             // right
-            Node child2 =  randomTypeChild(nextLevel);
+            Node child2 =  randomTypeChild(nextLevel, parent);
             parent.setChild(1, child2);
             generateTree(child2, nextLevel);
         }
@@ -72,19 +72,19 @@ public class Tree {
         return;
     }
 
-    private Node randomTypeChild(int nextLevel) {
+    private Node randomTypeChild(int nextLevel, Node parent) {
         float mathOperatorPropability =  MATH_OPERATOR_NODE_PROPABILITY * nextLevel * random.nextInt(MAXIMUM_RANDOM_BOUND);
         float mathFunctionPropability =  MATH_FUNCTION_NODE_PROPABILITY  * nextLevel * random.nextInt(MAXIMUM_RANDOM_BOUND);
         float valuePropability =  VALUE_NODE_PROPABILITY * nextLevel * random.nextInt(MAXIMUM_RANDOM_BOUND);
 
         if(valuePropability >= mathFunctionPropability && valuePropability >= mathOperatorPropability) {
-            return new ValueNode(nextLevel, random.nextDouble());
+            return new ValueNode(nextLevel, random.nextDouble(), parent);
         }
         if(mathFunctionPropability >= valuePropability && mathFunctionPropability >= mathOperatorPropability) {
-            return new MathFunctionNode(nextLevel);
+            return new MathFunctionNode(nextLevel, parent);
         }
         if(mathOperatorPropability >= valuePropability && mathOperatorPropability >= mathFunctionPropability) {
-            return new MathOperatorNode(nextLevel);
+            return new MathOperatorNode(nextLevel, parent);
         }
 
         return null;
@@ -120,7 +120,8 @@ public class Tree {
     }
 
     public void mutate() {
-        //root.mutate();
+        Node node = getRandomNode();
+        node.mutate();
     }
 
     public int size() {
@@ -138,47 +139,48 @@ public class Tree {
     }
 
     public Node getRandomNode() {
-        randomTravelsalCounter = 0;
-        int randomNum = random.nextInt(size);
-        return getRandomTraversal(root, randomNum);
+        int rannum = 1 + random.nextInt(size-1);
+        return getRandomNode(root, rannum);
     }
 
-    private Node getRandomTraversal(Node node, int randomNum) {
-        randomTravelsalCounter++;
+    public Node getRandomNode(Node temp, int ranNum) {
 
-        if(randomTravelsalCounter == randomNum)
-            return node;
+        if(temp == null)
+            return null;
 
-        if(node.children[0] != null)
-            return getRandomTraversal(node.children[0], randomNum);
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(temp);
+        int count = 0;
 
-        if(node.children[1] != null)
-            return getRandomTraversal(node.children[1], randomNum);
+        Node predecesor = null;
+        while(!q.isEmpty() && count <= ranNum) {
+            Node current = q.remove();
+            if(count == ranNum) {
+                if(current.isLeaf()) {
+                   return predecesor;
+                }
+                return current;
+            }
+
+            if(current.children[0] != null ) {
+                q.add(current.children[0]);
+            }
+            if(current.children[1] != null ) {
+                q.add(current.children[1]);
+            }
+            count++;
+            predecesor = current;
+        }
 
         return null;
     }
 
-    public void replaceNode(Node node1, Node node2) {
+    public void replace(Node node1, Node node2) {
         try {
-            replaceNode(root, node1, node2);
+            node1.replaceChild(node2);
+            size = size(root);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void replaceNode(Node root, Node node1, Node node2) throws Exception {
-        if(root.children[0] == node1) {
-            root.setChild(0, node2);
-            return;
-        } else if(root.children[0] != null) {
-            replaceNode(root.children[0], node1, node2);
-        }
-
-        if(root.children[1] == node1) {
-            root.setChild(1, node2);
-            return;
-        } else if(root.children[1] != null) {
-            replaceNode(root.children[1], node1, node2);
         }
     }
 }

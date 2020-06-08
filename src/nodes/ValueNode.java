@@ -5,10 +5,11 @@ public class ValueNode extends Node {
     int variableId = -1;
     double value;
 
-    public ValueNode(int level, double value) {
-        super(level);
+    public ValueNode(int level, double value, Node parent) {
+        super(level, parent);
         nodeType = NodeType.VALUE;
         this.value = value;
+        this.children = new Node[2];
     }
 
     @Override
@@ -23,5 +24,25 @@ public class ValueNode extends Node {
 
     public void setVariableId(int id) {
         this.variableId = id;
+    }
+
+    @Override
+    public void setChild(int index, Node node) throws Exception {
+        System.out.println("FUCK...");
+    }
+
+    @Override
+    public Node clone(Node parent) {
+        ValueNode clone = new ValueNode(this.level, this.value, this.parent);
+        clone.nodeType = this.nodeType;
+        clone.value = this.value;
+        clone.variableId = this.variableId;
+        clone.children = new Node[2];
+        return clone;
+    }
+
+    @Override
+    public void mutate() {
+
     }
 }

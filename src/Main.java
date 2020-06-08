@@ -59,7 +59,7 @@ public class Main {
 
 
         Application application = new Application();
-        application.execute(dataAccess, 3l, TimeUnit.SECONDS);
+        application.execute(dataAccess, 3l, TimeUnit.HOURS);
 
     }
 }

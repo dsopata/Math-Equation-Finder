@@ -4,15 +4,16 @@ import java.util.UUID;
 
 public abstract class Node {
 
-    public int level  = 0;
+    public int level;
     public Node[] children = new Node[2];
     private UUID id = UUID.randomUUID();
-    private Node parent;
+    public Node parent;
 
     NodeType nodeType;
 
-    public Node(int level) {
+    public Node(int level, Node parent) {
         this.level = level;
+        this.parent = parent;
     }
 
     public void setChild(int index, Node node) throws Exception {
@@ -26,6 +27,26 @@ public abstract class Node {
         return id;
     }
 
+    public void replaceChild(Node node2) throws Exception {
+        if(this.parent == null) {
+            return;
+        }
+        if(this.equals(this.parent.children[0])) {
+            this.parent.setChild(0, node2);
+            node2.parent = this.parent;
+            return;
+        }
+        if(this.equals(this.parent.children[1])) {
+            this.parent.setChild(1, node2);
+            node2.parent = this.parent;
+        }
+    }
+
+    public boolean isLeaf() {
+        return this.children[0] != null ||this.children[1] != null;
+    }
+
+    public abstract void mutate();
 
     public enum NodeType {
         MATH_FUNCTION,
@@ -39,10 +60,6 @@ public abstract class Node {
 
     public abstract double calculate(double[] independentVariables);
 
-    //public abstract void mutate();
-
-
-
-
+    public abstract Node clone(Node parent);
 
 }

@@ -19,14 +19,11 @@ public class Application implements ApplicationInterface {
         geneticAlgorithm.generatePopulation();
         //2. start algorytmu
 
-        //3. iteracja algorytmu:
-
-
+        //3. iteracje algorytmu:
         int iterationIndex = 0;
         while (LocalDateTime.now().isBefore(finishTime)) {
             geneticAlgorithm.nextGeneration();
-            resultInterface.getFormula("dasdas");
-           // System.out.println("Iteration: " + iterationIndex++);
+//            resultInterface.getFormula("dasdas");
         }
 
         return resultInterface;

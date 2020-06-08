@@ -22,6 +22,7 @@ public class GeneticAlgorithm {
     private final int numberOfExperimentalPoints;
     private final int numberOfIndependentVariables;
     private Random random = new Random();
+    private String currentBest = "";
 
     public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
@@ -36,18 +37,19 @@ public class GeneticAlgorithm {
             population.add(generateChromosome());
         }
         calculateAndSortByScore(population);
-
     }
 
     private void calculateAndSortByScore(List<Chromosome> population) {
-        population.forEach(c -> c.calculateScore(dataAccess));
+        population
+                .parallelStream()
+                .forEach( c -> c.calculateScore(dataAccess)
+        );
         Collections.sort(population);
     }
 
     private  Chromosome generateChromosome() {
         Tree tree = new Tree(numberOfIndependentVariables);
         tree.setIndependentVariablesInTree(dataAccess.getNumberOfIndependentVariables());
-//        System.out.println(tree.toString());
         return new Chromosome(tree);
     }
 
@@ -55,32 +57,37 @@ public class GeneticAlgorithm {
         //krzyzowanie
         crossover();
         //mutowanie
+        mutate();
+        //selekcja
+        Collections.sort(population);
+        if(!currentBest.equals(population.get(0).getTree().toString())){
+            currentBest = population.get(0).getTree().toString();
+            System.out.println(currentBest);
+        }
+    }
+
+    private void mutate() {
         if(random.nextInt(100) < MUTATION_PROPABILITY_IN_PERCENTEGE) {
             int chromosomeId1 = POPULATION_ELITE + (int) (Math.random() * Math.random() * (POPULATION_SIZE - POPULATION_ELITE));
             Chromosome chromosome1 = population.get(chromosomeId1);
-            chromosome1.mutate();
+            chromosome1.mutate(dataAccess);
         }
-        //selekcja
-        calculateAndSortByScore(population);
     }
 
     private void crossover() {
         int chromosomeId1 = POPULATION_ELITE + (int) (Math.random() * Math.random() * (POPULATION_SIZE - POPULATION_ELITE));
         Chromosome chromosome1 = population.get(chromosomeId1);
-        population.remove(chromosomeId1);
 
         int chromosomeId2 = POPULATION_ELITE + (int) (Math.random() * Math.random() * (POPULATION_SIZE - POPULATION_ELITE));
         Chromosome chromosome2 = population.get(chromosomeId2);
-        population.remove(chromosomeId2);
-
         Node node1 = chromosome1.getTree().getRandomNode();
         Node node2 = chromosome2.getTree().getRandomNode();
 
-        chromosome1.getTree().replaceNode(node1, node2);
-        chromosome2.getTree().replaceNode(node2, node1);
+        Node temp =  node1.clone(null);
+        Node temp2 = node2.clone(null);
 
-        population.add(chromosome1);
-        population.add(chromosome2);
+        chromosome1.replace(node1, temp2, dataAccess);
+        chromosome2.replace(node2, temp, dataAccess);
     }
 
 }
