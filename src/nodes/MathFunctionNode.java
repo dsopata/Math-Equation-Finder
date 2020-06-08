@@ -1,6 +1,7 @@
 package nodes;
 
 ;
+import nodes.mathoperators.LocalCos;
 import nodes.mathoperators.LocalExp;
 import nodes.mathoperators.LocalSin;
 import nodes.mathoperators.LocalSqrt;
@@ -16,13 +17,15 @@ public class MathFunctionNode extends Node {
     public enum MathFunctions {
         SQRT,
         EXP,
-        SIN
+        SIN,
+        COS
     }
 
     private  final Map<MathFunctions, LocalFunctionInterface> mathFunctionsMap  = new HashMap<>() {{
         put(MathFunctionNode.MathFunctions.SQRT, new LocalSqrt());
         put(MathFunctionNode.MathFunctions.EXP, new LocalExp());
         put(MathFunctionNode.MathFunctions.SIN, new LocalSin());
+        put(MathFunctionNode.MathFunctions.COS, new LocalCos());
     }};
 
 
