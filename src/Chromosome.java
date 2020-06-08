@@ -4,8 +4,9 @@ public class Chromosome implements Comparable<Chromosome> {
     private Tree tree;
     private Double score = 0.0;
 
-    public Chromosome(Tree tree) {
+    public Chromosome(Tree tree, ExperimentalDataAccessIntereface dataAccess) {
         this.tree = tree;
+        calculateScore(dataAccess);
     }
 
     @Override

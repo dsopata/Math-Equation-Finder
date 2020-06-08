@@ -66,6 +66,7 @@ public class MathOperatorNode extends Node {
         clone.mathOperator = this.mathOperator;
         clone.nodeType = this.nodeType;
         clone.children = new Node[] {this.children[0].clone(clone), this.children[1].clone(clone)};
+
         return clone;
     }
 
