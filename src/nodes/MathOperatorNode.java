@@ -36,18 +36,18 @@ public class MathOperatorNode extends Node {
             return MathOperators.values()[new Random().nextInt(MathOperators.values().length)];
         }
         if(mathOperator.ordinal() == 0) {
-            return MathOperatorNode.MathOperators.values()[ 1 + random.nextInt(MathOperatorNode.MathOperators.values().length - 1)];
+            return MathOperators.values()[ 1 + random.nextInt(MathOperators.values().length - 1)];
         }
-        if(mathOperator.ordinal() == MathOperatorNode.MathOperators.values().length - 1) {
-            return MathOperatorNode.MathOperators.values()[ random.nextInt(MathOperatorNode.MathOperators.values().length - 1)];
+        if(mathOperator.ordinal() == MathOperators.values().length - 1) {
+            return MathOperators.values()[ random.nextInt(MathOperators.values().length - 1)];
         }
         int leftValue = random.nextInt(mathOperator.ordinal());
-        int rightValue = mathOperator.ordinal() + random.nextInt(MathOperatorNode.MathOperators.values().length - mathOperator.ordinal());
+        int rightValue = mathOperator.ordinal() + random.nextInt(MathOperators.values().length - mathOperator.ordinal());
         boolean useLeft = random.nextBoolean();
         if(useLeft) {
-            return MathOperatorNode.MathOperators.values()[leftValue];
+            return MathOperators.values()[leftValue];
         }
-        return MathOperatorNode.MathOperators.values()[rightValue];
+        return MathOperators.values()[rightValue];
     }
 
     @Override
