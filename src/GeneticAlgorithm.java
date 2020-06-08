@@ -18,14 +18,12 @@ public class GeneticAlgorithm {
 
     private List<Chromosome> population = new ArrayList<>();
     private final ExperimentalDataAccessIntereface dataAccess;
-    private final int numberOfExperimentalPoints;
     private final int numberOfIndependentVariables;
     private Random random = new Random();
     private String currentBest = "";
 
     public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
-        this.numberOfExperimentalPoints = dataAccess.getNumberOfExperimentalPoints();
         this.numberOfIndependentVariables = dataAccess.getNumberOfIndependentVariables();
     }
 
@@ -40,7 +38,7 @@ public class GeneticAlgorithm {
 
     private  Chromosome generateChromosome() {
         Tree tree = new Tree(numberOfIndependentVariables);
-        tree.setIndependentVariablesInTree(dataAccess.getNumberOfIndependentVariables());
+        tree.setIndependentVariablesInTree(numberOfIndependentVariables);
         return new Chromosome(tree, dataAccess);
     }
 
@@ -49,7 +47,6 @@ public class GeneticAlgorithm {
         crossover();
         //mutowanie
         mutate();
-
         //podmiana najslabszych na losowe osobniki (o rozmiarze elity)
         appendNewChromosomes();
         //selekcja
@@ -84,8 +81,8 @@ public class GeneticAlgorithm {
         Node node1 = chromosome1.getTree().getRandomNode();
         Node node2 = chromosome2.getTree().getRandomNode();
 
-        Node temp =  node1.clone(null);
-        Node temp2 = node2.clone(null);
+        Node temp =  node1.clone(null, 0);
+        Node temp2 = node2.clone(null, 0);
 
         chromosome1.replace(node1, temp2, dataAccess);
         chromosome2.replace(node2, temp, dataAccess);

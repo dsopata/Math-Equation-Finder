@@ -14,7 +14,7 @@ public class ValueNode extends Node {
 
     @Override
     public String toString() {
-        return (variableId != -1) ? "x" + variableId : String.valueOf(value);
+        return (variableId != -1) ? "x[" + variableId + "]": String.valueOf(value);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ValueNode extends Node {
     }
 
     @Override
-    public Node clone(Node parent) {
+    public Node clone(Node parent, int level) {
         ValueNode clone = new ValueNode(this.level, this.value, this.parent);
         clone.nodeType = this.nodeType;
         clone.value = this.value;

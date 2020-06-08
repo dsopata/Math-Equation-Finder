@@ -9,9 +9,8 @@ import java.util.Random;
 
 public class Tree {
 
-    private static final int MAXIMUM_TREE_HEIGHT = 6;
+    private static final int MAXIMUM_TREE_HEIGHT = 10;
     private static final int MAXIMUM_RANDOM_BOUND = 100;
-
     private static final float MATH_OPERATOR_NODE_PROPABILITY = .03f;
     private static final float MATH_FUNCTION_NODE_PROPABILITY = .05f;
     private static final float VALUE_NODE_PROPABILITY = .055f;
@@ -21,7 +20,6 @@ public class Tree {
     private Random random;
     private int assignedIndependendVariables;
     private int size = 0;
-    private int randomTravelsalCounter = 0;
 
     public Tree(int numberOfIndependentVariables) {
         this.random = new Random();
@@ -124,13 +122,6 @@ public class Tree {
         node.mutate();
     }
 
-    public int size() {
-        if(size == 0) {
-            this.size = size(root);
-        }
-        return size;
-    }
-
     private int size(Node node) {
         if (node == null) return(0);
         else {
@@ -139,12 +130,11 @@ public class Tree {
     }
 
     public Node getRandomNode() {
-        int rannum = 1 + random.nextInt(size-1);
-        return getRandomNode(root, rannum);
+        int ranNum = 1 + random.nextInt(size-1);
+        return getRandomNode(root, ranNum);
     }
 
     public Node getRandomNode(Node temp, int ranNum) {
-
         if(temp == null)
             return null;
 

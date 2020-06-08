@@ -1,17 +1,17 @@
 package nodes.mathfunctions;
 
-import nodes.LocalOperatorInterface;
+import nodes.LocalOperatorStrategy;
 
-public class LocalSubstract implements LocalOperatorInterface {
+public class LocalSubstract implements LocalOperatorStrategy {
 
 
     @Override
-    public String getLocalFunctionName() {
+    public String print() {
         return " - ";
     }
 
     @Override
-    public double getLocalFunctionVal(double var1, double var2) {
+    public double value(double var1, double var2) {
         return var1 - var2;
     }
 }

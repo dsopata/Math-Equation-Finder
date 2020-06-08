@@ -1,16 +1,16 @@
 package nodes.mathoperators;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalFunctionStrategy;
 
-public class LocalSqrt implements LocalFunctionInterface {
+public class LocalSqrt implements LocalFunctionStrategy {
 
     @Override
-    public String getLocalFunctionName() {
+    public String print() {
         return "sqrt";
     }
 
     @Override
-    public double getLocalFunctionVal(double var) {
+    public double value(double var) {
         return Math.sqrt(var);
     }
 }

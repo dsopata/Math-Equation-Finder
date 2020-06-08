@@ -1,16 +1,16 @@
 package nodes.mathoperators;
 
-import nodes.LocalFunctionInterface;
+import nodes.LocalFunctionStrategy;
 
-public class LocalCos implements LocalFunctionInterface {
+public class LocalCos implements LocalFunctionStrategy {
 
     @Override
-    public String getLocalFunctionName() {
+    public String print() {
         return "cos";
     }
 
     @Override
-    public double getLocalFunctionVal(double var) {
+    public double value(double var) {
         return Math.cos(var);
     }
 }

@@ -16,7 +16,7 @@ public class MathOperatorNode extends Node {
         DIVIDE,
     }
 
-    private static final Map<MathOperators, LocalOperatorInterface> mathOperatorsMap = new HashMap<>() {{
+    private static final Map<MathOperators, LocalOperatorStrategy> mathOperatorsMap = new HashMap<>() {{
         put(MathOperators.SUM, new LocalSum());
         put(MathOperators.DIVIDE, new LocalDivide());
         put(MathOperators.MULTIPLY, new LocalMultiply());
@@ -52,20 +52,20 @@ public class MathOperatorNode extends Node {
 
     @Override
     public double calculate(double[] independentVariables) {
-        return  mathOperatorsMap.get(mathOperator).getLocalFunctionVal(children[0].calculate(independentVariables), children[1].calculate(independentVariables));
+        return  mathOperatorsMap.get(mathOperator).value(children[0].calculate(independentVariables), children[1].calculate(independentVariables));
     }
 
     @Override
     public String toString() {
-        return "(" + children[0].toString() + mathOperatorsMap.get(mathOperator).getLocalFunctionName() + children[1].toString() + ")";
+        return bracket(true) + children[0].toString() + mathOperatorsMap.get(mathOperator).print() + children[1].toString() + bracket(false);
     }
 
     @Override
-    public Node clone(Node parent) {
+    public Node clone(Node parent, int level) {
         MathOperatorNode clone = new MathOperatorNode(this.level, this.parent);
         clone.mathOperator = this.mathOperator;
         clone.nodeType = this.nodeType;
-        clone.children = new Node[] {this.children[0].clone(clone), this.children[1].clone(clone)};
+        clone.children = new Node[] {this.children[0].clone(clone, this.level+1), this.children[1].clone(clone, this.level+1)};
 
         return clone;
     }

@@ -1,12 +1,9 @@
 package nodes;
 
-import java.util.UUID;
-
 public abstract class Node {
 
     public int level;
     public Node[] children = new Node[2];
-    private UUID id = UUID.randomUUID();
     public Node parent;
 
     NodeType nodeType;
@@ -21,10 +18,6 @@ public abstract class Node {
             throw new Exception("incorrect node child index");
         }
         children[index] = node;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public void replaceChild(Node node2) throws Exception {
@@ -60,6 +53,18 @@ public abstract class Node {
 
     public abstract double calculate(double[] independentVariables);
 
-    public abstract Node clone(Node parent);
+    public abstract Node clone(Node parent, int level);
 
+    String bracket(boolean left) {
+        switch (this.level) {
+            case 0:
+                return "";
+            case 1:
+                return left ? "(" : ")";
+            case 2:
+                return left ? "[" : "]";
+            default:
+                return left ? "{" : "}";
+        }
+    }
 }
