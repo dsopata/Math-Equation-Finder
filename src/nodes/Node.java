@@ -64,15 +64,14 @@ public abstract class Node {
 
     String bracket(boolean left) {
         switch (this.level) {
-//            case 0:
-//                return "";
-//            case 1:
-//                return left ? "(" : ")";
-//            case 2:
-//                return left ? "[" : "]";
-            default:
+            case 0:
+                return "";
+            case 1:
                 return left ? "(" : ")";
-
+            case 2:
+                return left ? "[" : "]";
+            default:
+                return left ? "{" : "}";
         }
     }
 }
