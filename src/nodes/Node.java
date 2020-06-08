@@ -1,5 +1,12 @@
 package nodes;
 
+/**
+ * Prototyp wierzcholka drzewa
+ * Rozrozniamy 3 typy:
+ *  - Value node: dedykowany dla node'a zawierajacego informacje o wartosci stalej lub zmiennej niezaleznej
+ *  - Math Operator node: node operacji matematycznych (typu suma, iloczyn), zawierajacy 2 dzieci.
+ *  - Math Function node: node funkcji matematycznych (sinus, exp), zawierajacych 1 dzieco - 1 argument funkcji.
+ */
 public abstract class Node {
 
     public int level;
@@ -39,8 +46,6 @@ public abstract class Node {
         return this.children[0] != null ||this.children[1] != null;
     }
 
-    public abstract void mutate();
-
     public enum NodeType {
         MATH_FUNCTION,
         MATH_OPERATOR,
@@ -50,6 +55,8 @@ public abstract class Node {
     public NodeType getNodeType() {
         return nodeType;
     }
+
+    public abstract void mutate();
 
     public abstract double calculate(double[] independentVariables);
 

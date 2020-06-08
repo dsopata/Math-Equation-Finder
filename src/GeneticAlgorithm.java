@@ -5,22 +5,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 
 public class GeneticAlgorithm {
 
     private static final int POPULATION_SIZE = 800;
     private static final int POPULATION_ELITE = (int) Math.ceil(0.01 * POPULATION_SIZE);
     private static final int MUTATION_PROPABILITY_IN_PERCENTEGE = 2;
-
-    public  AtomicBoolean breakLoop = new AtomicBoolean(false);
+    private static final boolean SHOW_LOG = true;
 
     private List<Chromosome> population = new ArrayList<>();
     private final ExperimentalDataAccessIntereface dataAccess;
     private final int numberOfIndependentVariables;
     private Random random = new Random();
-    private String currentBest = "";
+    private static String currentBest = "";
+    private static String[] currentBestArray = new String[0];//(String[]) Array.newInstance(String.class, 3);
 
     public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
@@ -28,8 +26,9 @@ public class GeneticAlgorithm {
     }
 
     public  void generatePopulation() {
-        System.out.println("Generating population...");
-
+        if(SHOW_LOG) {
+            System.out.println("Generating population...");
+        }
         for(int a = 0; a < POPULATION_SIZE; a++) {
             population.add(generateChromosome());
         }
@@ -53,8 +52,11 @@ public class GeneticAlgorithm {
         Collections.sort(population);
         if(!currentBest.equals(population.get(0).getTree().toString())){
             currentBest = population.get(0).getTree().toString();
-            System.out.println(currentBest);
-        }
+            currentBestArray = population.get(0).getTree().getNodesStringList().toArray(new String[0]);
+            if(SHOW_LOG) {
+                System.out.println("Best: " + currentBest);
+            }
+       }
     }
 
     private void appendNewChromosomes() {

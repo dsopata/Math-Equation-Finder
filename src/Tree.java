@@ -3,9 +3,7 @@ import nodes.MathOperatorNode;
 import nodes.Node;
 import nodes.ValueNode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class Tree {
 
@@ -20,6 +18,7 @@ public class Tree {
     private Random random;
     private int assignedIndependendVariables;
     private int size = 0;
+    List<String> nodesList = new ArrayList<String>();
 
     public Tree(int numberOfIndependentVariables) {
         this.random = new Random();
@@ -33,6 +32,26 @@ public class Tree {
             size = size(root);
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public List<String> getNodesStringList() {
+        return getNodesStringList(root);
+    }
+
+    private List<String> getNodesStringList(Node node) {
+        nodesList = new ArrayList<String>();
+        travelTree(root);
+        return nodesList;
+    }
+
+    private void travelTree(Node node) {
+        if (node != null) {
+            if(node.children[0] != null)
+                travelTree(node.children[0]);
+            nodesList.add(node.toString());
+            if(node.children[1] != null)
+                travelTree(node.children[1]);
         }
     }
 
