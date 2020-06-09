@@ -32,7 +32,7 @@ public class Result implements ResultInterface {
 //            if(useXjep) {
 //                return xJepSimplify(bestResult);
 //            }
-
+            //System.out.println(bestResult);
             return bestResult;
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

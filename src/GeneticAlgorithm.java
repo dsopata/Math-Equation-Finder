@@ -52,7 +52,7 @@ public class GeneticAlgorithm {
         Collections.sort(population);
         if(!currentBest.equals(population.get(0).getTree().toString())){
             currentBest = population.get(0).getTree().toString();
-            currentBestArray = population.get(0).getTree().getNodesStringList().toArray(new String[0]);
+            currentBestArray = currentBest.split(" ");
             if(SHOW_LOG) {
                 System.out.println("Best: " + currentBest);
             }
