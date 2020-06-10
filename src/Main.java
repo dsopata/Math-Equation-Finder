@@ -2,6 +2,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    private static final String BEST_FORMULA_TABLE = "currentBestArray";
+
     public static void main(String[] args) {
         ExperimentalDataAccessIntereface experimentalDataAccessIntereface = new ExperimentalDataAccess();
         ResultInterface resultInterface = new Result();
@@ -57,9 +59,8 @@ public class Main {
         dataAccess.setIndependentVariables(independendValues);
         dataAccess.setDependentVariable(dependendValues);
 
-
         Application application = new Application();
-        application.execute(dataAccess, 3l, TimeUnit.SECONDS);
+        System.out.println(application.execute(dataAccess, 30l, TimeUnit.SECONDS).getFormula(BEST_FORMULA_TABLE));
 
     }
 }

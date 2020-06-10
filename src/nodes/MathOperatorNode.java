@@ -52,12 +52,31 @@ public class MathOperatorNode extends Node {
 
     @Override
     public double calculate(double[] independentVariables) {
+        if(bothChildrenHaveConstValue()) {
+            return calculateConstChildren();
+        }
+
         return  mathOperatorsMap.get(mathOperator).value(children[0].calculate(independentVariables), children[1].calculate(independentVariables));
     }
 
     @Override
     public String toString() {
+        if(bothChildrenHaveConstValue()) {
+            return String.valueOf(calculateConstChildren());
+        }
+
         return bracket(true) + children[0].toString() + mathOperatorsMap.get(mathOperator).print() + children[1].toString() + bracket(false);
+    }
+
+    private Double calculateConstChildren() {
+        return mathOperatorsMap.get(mathOperator).value(((ValueNode)children[0]).value, ((ValueNode)children[1]).value);
+    }
+
+    private boolean bothChildrenHaveConstValue() {
+        return children[0].getNodeType().equals(NodeType.VALUE) &&
+                ((ValueNode)children[0]).variableId == -1 &&
+                children[1].getNodeType().equals(NodeType.VALUE) &&
+                ((ValueNode)children[1]).variableId == -1;
     }
 
     @Override

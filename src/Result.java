@@ -2,20 +2,9 @@
 //import org.nfunk.jep.Node;
 //import org.nfunk.jep.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
 
 public class Result implements ResultInterface {
-
-//    private final boolean useJsLib = false;
-//    private final boolean useXjep = false;
 
     @Override
     public String getFormula(String tableName) {
@@ -23,16 +12,13 @@ public class Result implements ResultInterface {
             Field field = GeneticAlgorithm.class.getDeclaredField(tableName);
             field.setAccessible(true);
             String[] bestResultArray = (String[]) field.get(GeneticAlgorithm.class);
-            String bestResult = Arrays.toString(bestResultArray);
+            String bestResult = "";
 
-//            if(useJsLib) {
-//                return jsLibSimplify(bestResult);
-//            }
-//
-//            if(useXjep) {
-//                return xJepSimplify(bestResult);
-//            }
-            //System.out.println(bestResult);
+            for(String bestResultPart : bestResultArray) {
+                bestResult += bestResultPart;
+                bestResult += " ";
+            }
+
             return bestResult;
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

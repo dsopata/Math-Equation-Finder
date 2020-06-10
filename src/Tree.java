@@ -5,7 +5,7 @@ import nodes.ValueNode;
 
 import java.util.*;
 
-public class Tree {
+public class Tree  {
 
     private static final int MAXIMUM_TREE_HEIGHT = 10;
     private static final int MAXIMUM_RANDOM_BOUND = 100;
@@ -29,6 +29,7 @@ public class Tree {
 
         try {
             this.generateTree( root, level);
+            this.setIndependentVariablesInTree(numberOfIndependentVariables);
             size = size(root);
         } catch (Exception e) {
             System.out.println(e);
@@ -192,4 +193,5 @@ public class Tree {
             e.printStackTrace();
         }
     }
+
 }

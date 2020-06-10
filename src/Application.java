@@ -1,10 +1,8 @@
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Application implements ApplicationInterface {
-
-
-    private static final String BEST_FORMULA_TABLE = "currentBestArray";
 
     public Application() {
 
@@ -26,8 +24,6 @@ public class Application implements ApplicationInterface {
         while (LocalDateTime.now().isBefore(finishTime)) {
             geneticAlgorithm.nextGeneration();
         }
-        resultInterface.getFormula(BEST_FORMULA_TABLE);
-
 
         return resultInterface;
     }

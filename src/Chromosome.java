@@ -1,5 +1,10 @@
 import nodes.Node;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class Chromosome implements Comparable<Chromosome> {
     private Tree tree;
     private Double score = 0.0;
@@ -18,13 +23,13 @@ public class Chromosome implements Comparable<Chromosome> {
         return score;
     }
 
+
     public void calculateScore(ExperimentalDataAccessIntereface dataAccess) {
         int experimentalPoints = dataAccess.getNumberOfExperimentalPoints();
-        double newScore = 0d;
 
-        for(int a = 0; a < experimentalPoints; a++) {
-            newScore += Math.pow(dataAccess.getDependentVariable(a) - tree.getRoot().calculate(dataAccess.getIndependentVariables(a)), 2);
-        }
+        double newScore = IntStream.range(0, experimentalPoints).parallel()
+                .mapToDouble(a -> Math.pow(dataAccess.getDependentVariable(a) - tree.getRoot().calculate(dataAccess.getIndependentVariables(a)), 2))
+                .sum();
 
         this.score = newScore;
     }

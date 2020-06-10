@@ -57,11 +57,19 @@ public class MathFunctionNode extends Node {
 
     @Override
     public double calculate(double[] independentVariables) {
+        if(bothChildrenHaveConstValue()) {
+            return calculateConstChildren();
+        }
+
         return  mathFunctionsMap.get(mathFunction).value(children[0].calculate(independentVariables));
     }
 
     @Override
     public String toString() {
+        if(bothChildrenHaveConstValue()) {
+            return String.valueOf(calculateConstChildren());
+        }
+
         return mathFunctionsMap.get(mathFunction).print() + bracket(true) + children[0].toString() + bracket(false);
     }
 
@@ -78,4 +86,14 @@ public class MathFunctionNode extends Node {
     public void mutate() {
         mathFunction = randomMathOperator(true);
     }
+
+    private Double calculateConstChildren() {
+        return mathFunctionsMap.get(mathFunction).value(((ValueNode)children[0]).value);
+    }
+
+    private boolean bothChildrenHaveConstValue() {
+        return children[0].getNodeType().equals(NodeType.VALUE) &&
+                ((ValueNode)children[0]).variableId == -1;
+    }
+
 }

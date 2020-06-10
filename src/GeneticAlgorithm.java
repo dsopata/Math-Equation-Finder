@@ -18,7 +18,7 @@ public class GeneticAlgorithm {
     private final int numberOfIndependentVariables;
     private Random random = new Random();
     private static String currentBest = "";
-    private static String[] currentBestArray = new String[0];//(String[]) Array.newInstance(String.class, 3);
+    private static String[] currentBestArray;
 
     public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
@@ -35,9 +35,8 @@ public class GeneticAlgorithm {
         Collections.sort(population);
     }
 
-    private  Chromosome generateChromosome() {
+    private Chromosome generateChromosome()  {
         Tree tree = new Tree(numberOfIndependentVariables);
-        tree.setIndependentVariablesInTree(numberOfIndependentVariables);
         return new Chromosome(tree, dataAccess);
     }
 

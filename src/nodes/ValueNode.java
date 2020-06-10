@@ -28,7 +28,7 @@ public class ValueNode extends Node {
 
     @Override
     public void setChild(int index, Node node) throws Exception {
-        System.out.println("FUCK...");
+        throw new Exception("Value node cant have children");
     }
 
     @Override
