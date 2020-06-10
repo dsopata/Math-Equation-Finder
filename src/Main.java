@@ -5,8 +5,6 @@ public class Main {
     private static final String BEST_FORMULA_TABLE = "currentBestArray";
 
     public static void main(String[] args) {
-        ExperimentalDataAccessIntereface experimentalDataAccessIntereface = new ExperimentalDataAccess();
-        ResultInterface resultInterface = new Result();
         ExperimentalDataAccess dataAccess = new ExperimentalDataAccess();
 
         double[][] independendValues = {
