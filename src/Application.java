@@ -22,7 +22,7 @@ public class Application implements ApplicationInterface {
         //3. iteracje algorytmu:
         int iterationIndex = 0;
         while (LocalDateTime.now().isBefore(finishTime)) {
-            geneticAlgorithm.nextGeneration();
+            geneticAlgorithm.nextGeneration(resultInterface);
         }
 
         return resultInterface;

@@ -2,48 +2,17 @@
 //import org.nfunk.jep.Node;
 //import org.nfunk.jep.ParseException;
 
-import java.lang.reflect.Field;
-
 public class Result implements ResultInterface {
+
+    private static final String NAME_ALIAS = "_x";
+    private String bestResult = "";
 
     @Override
     public String getFormula(String tableName) {
-        try {
-            Field field = GeneticAlgorithm.class.getDeclaredField(tableName);
-            field.setAccessible(true);
-            String[] bestResultArray = (String[]) field.get(GeneticAlgorithm.class);
-            String bestResult = "";
-
-            for(String bestResultPart : bestResultArray) {
-                bestResult += bestResultPart;
-                bestResult += " ";
-            }
-
-            return bestResult;
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return bestResult.replace(NAME_ALIAS, tableName);
     }
 
-
-
-//    private String xJepSimplify(String bestResult) throws ParseException {
-////        XJep xjep = new XJep();
-////        xjep.setImplicitMul(true);
-////        xjep.setAllowUndeclared(true);
-////
-////        Node node = xjep.parse(bestResult);
-////        Node simp = xjep.simplify(node);
-////
-////        return simp.toString();
-//    }
-
-//    private String jsLibSimplify(String bestResult) throws ScriptException, FileNotFoundException {
-//        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-//        engine.eval(new FileReader("lib/math.js"));
-//
-//        return engine.eval("math.simplify(\'" + bestResult + "\')").toString();
-//    }
+    public void setBestResult(String bestResult) {
+        this.bestResult = bestResult;
+    }
 }

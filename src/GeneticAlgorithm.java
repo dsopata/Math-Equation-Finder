@@ -18,7 +18,6 @@ public class GeneticAlgorithm {
     private final int numberOfIndependentVariables;
     private Random random = new Random();
     private static String currentBest = "";
-    private static String[] currentBestArray;
 
     public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
@@ -40,7 +39,7 @@ public class GeneticAlgorithm {
         return new Chromosome(tree, dataAccess);
     }
 
-    public void nextGeneration() {
+    public void nextGeneration(ResultInterface result) {
         //krzyzowanie
         crossover();
         //mutowanie
@@ -51,7 +50,7 @@ public class GeneticAlgorithm {
         Collections.sort(population);
         if(!currentBest.equals(population.get(0).getTree().toString())){
             currentBest = population.get(0).getTree().toString();
-            currentBestArray = currentBest.split(" ");
+            ((Result)result).setBestResult(currentBest);
             if(SHOW_LOG) {
                 System.out.println("Best: " + currentBest);
             }

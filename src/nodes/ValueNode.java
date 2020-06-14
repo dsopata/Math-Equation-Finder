@@ -2,6 +2,8 @@ package nodes;
 
 public class ValueNode extends Node {
 
+    private static final String VARIABLE_ALIAS = "_x";
+
     int variableId = -1;
     double value;
 
@@ -14,7 +16,7 @@ public class ValueNode extends Node {
 
     @Override
     public String toString() {
-        return (variableId != -1) ? "x[" + variableId + "]": String.valueOf(value);
+        return (variableId != -1) ? VARIABLE_ALIAS + "[" + variableId + "]": String.valueOf(value);
     }
 
     @Override
