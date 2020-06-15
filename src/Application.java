@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Application implements ApplicationInterface {
@@ -14,15 +13,27 @@ public class Application implements ApplicationInterface {
         LocalDateTime finishTime = now.plus(maxWorkTime, timeUnit.toChronoUnit());
         ResultInterface resultInterface = new Result();
 
-        //1. generowanie populacje
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess);
-        geneticAlgorithm.generatePopulation();
-        //2. start algorytmu
+        //GA THREAD
+        Thread gaThread = new Thread() {
+            @Override
+            public void run() {
+                //1. generowanie populacje
+                GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess);
+                geneticAlgorithm.generatePopulation();
+                //2. start algorytmu
 
-        //3. iteracje algorytmu:
-        int iterationIndex = 0;
-        while (LocalDateTime.now().isBefore(finishTime)) {
-            geneticAlgorithm.nextGeneration(resultInterface);
+                //3. iteracje algorytmu:
+                int iterationIndex = 0;
+                while (LocalDateTime.now().isBefore(finishTime)) {
+                    geneticAlgorithm.nextGeneration(resultInterface);
+                }
+            }
+        };
+        try {
+            gaThread.start();
+            gaThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         return resultInterface;

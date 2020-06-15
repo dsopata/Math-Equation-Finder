@@ -1,8 +1,12 @@
 package nodes;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ValueNode extends Node {
 
     private static final String VARIABLE_ALIAS = "_x";
+    private static final int GENERATED_DOUBLE_PRECISION = 6;
 
     int variableId = -1;
     double value;
@@ -10,7 +14,10 @@ public class ValueNode extends Node {
     public ValueNode(int level, double value, Node parent) {
         super(level, parent);
         nodeType = NodeType.VALUE;
-        this.value = value;
+        this.value = BigDecimal.valueOf(value)
+                .setScale(GENERATED_DOUBLE_PRECISION, RoundingMode.HALF_UP)
+                .doubleValue();
+
         this.children = new Node[2];
     }
 
@@ -44,7 +51,5 @@ public class ValueNode extends Node {
     }
 
     @Override
-    public void mutate() {
-
-    }
+    public void mutate() {}
 }

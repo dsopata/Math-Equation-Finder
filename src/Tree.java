@@ -63,10 +63,10 @@ public class Tree  {
             if (parent.getNodeType() == Node.NodeType.VALUE) {
                 return;
             }
-            Node child =  new ValueNode(nextLevel, random.nextDouble(), parent);
+            Node child =  new ValueNode(nextLevel, random.nextDouble() * 10, parent);
             parent.setChild(0, child);
             if (parent.getNodeType() == Node.NodeType.MATH_OPERATOR) {
-                parent.setChild(1, new ValueNode(nextLevel, random.nextDouble(), parent));
+                parent.setChild(1, new ValueNode(nextLevel, random.nextDouble()* 10, parent));
             }
 
             return;
@@ -96,7 +96,7 @@ public class Tree  {
         float valuePropability =  VALUE_NODE_PROPABILITY * nextLevel * random.nextInt(MAXIMUM_RANDOM_BOUND);
 
         if(valuePropability >= mathFunctionPropability && valuePropability >= mathOperatorPropability) {
-            return new ValueNode(nextLevel, random.nextDouble(), parent);
+            return new ValueNode(nextLevel, random.nextDouble()* 10, parent);
         }
         if(mathFunctionPropability >= valuePropability && mathFunctionPropability >= mathOperatorPropability) {
             return new MathFunctionNode(nextLevel, parent);
