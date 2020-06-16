@@ -16,7 +16,9 @@ public class MathFunctionNode extends Node {
         EXP,
         SIN,
         COS,
-        ABS
+        ABS,
+        LOG,
+        TAN
     }
 
     private  final Map<MathFunctions, LocalFunctionStrategy> mathFunctionsMap  = new HashMap<>() {{
@@ -25,6 +27,8 @@ public class MathFunctionNode extends Node {
         put(MathFunctionNode.MathFunctions.SIN, new LocalSin());
         put(MathFunctionNode.MathFunctions.COS, new LocalCos());
         put(MathFunctionNode.MathFunctions.ABS, new LocalAbs());
+        put(MathFunctionNode.MathFunctions.LOG, new LocalLog());
+        put(MathFunctionNode.MathFunctions.TAN, new LocalTan());
     }};
 
 

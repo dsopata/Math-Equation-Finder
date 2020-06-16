@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class ValueNode extends Node {
 
     private static final String VARIABLE_ALIAS = "_x";
-    private static final int GENERATED_DOUBLE_PRECISION = 6;
+    private static final int GENERATED_DOUBLE_PRECISION = 3;
 
     int variableId = -1;
     double value;
@@ -14,21 +14,24 @@ public class ValueNode extends Node {
     public ValueNode(int level, double value, Node parent) {
         super(level, parent);
         nodeType = NodeType.VALUE;
-        this.value = BigDecimal.valueOf(value)
+        this.value = precision(value);
+        this.children = new Node[2];
+    }
+
+    private double precision(double val) {
+        return BigDecimal.valueOf(val)
                 .setScale(GENERATED_DOUBLE_PRECISION, RoundingMode.HALF_UP)
                 .doubleValue();
-
-        this.children = new Node[2];
     }
 
     @Override
     public String toString() {
-        return (variableId != -1) ? VARIABLE_ALIAS + "[" + variableId + "]": String.valueOf(value);
+        return (variableId != -1) ? VARIABLE_ALIAS + "[" + variableId + "]": String.valueOf(precision(value));
     }
 
     @Override
     public double calculate(double[] independentVariables) {
-        return (variableId != -1) ? independentVariables[variableId] : value;
+        return (variableId != -1) ? independentVariables[variableId] : precision(value);
     }
 
     public void setVariableId(int id) {

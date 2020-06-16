@@ -63,15 +63,6 @@ public abstract class Node {
     public abstract Node clone(Node parent, int level);
 
     String bracket(boolean left) {
-        switch (this.level) {
-            case 0:
-                return "";
-            case 1:
-                return left ? "(" : ")";
-            case 2:
-                return left ? "[" : "]";
-            default:
-                return left ? "{" : "}";
-        }
+        return left ? "( " : " )";
     }
 }
