@@ -1,64 +1,50 @@
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     private static final String TABLE_NAME = "x";
+    private static final String DATA_FILE_NAME = "data.csv";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ExperimentalDataAccess dataAccess = new ExperimentalDataAccess();
-
-        double[][] independendValues = {
-                {0.826308427,0.548696398,0.114552399},
-                {0.409941856,0.633549051,0.679030999},
-                {0.77503771,0.464139151,0.318191276},
-                {0.542992751,0.786261082,0.612430244},
-                {0.930874852,0.889142952,0.497110534},
-                {0.656316154,0.741171471,0.905906239},
-                {0.044077344,0.035014353,0.816611597},
-                {0.533417202,0.597669309,0.52062325},
-                {0.91389357,0.263380645,0.911569968},
-                {0.81404986,0.504900081,0.59458966},
-                {0.517995031,0.760751663,0.257085852},
-                {0.834557426,0.885083982,0.091525607},
-                {0.735834714,0.792303347,0.800208189},
-                {0.30268205,0.863996842,0.970508288},
-                {0.212188653,0.859310914,0.425617627},
-                {0.838560792,0.605625728,0.384592021},
-                {0.746159759,0.048584572,0.812725331},
-                {0.959455594,0.579922688,0.766372293},
-                {0.969192941,0.070758029,0.164136979},
-                {0.159039165,0.5980799,0.357829429},
-                {0.178336227,0.971512757,0.435408032}
-        };
-
-        double[] dependendValues = {
-                1.524901931,
-                2.224470747,
-                1.699417301,
-                2.251171104,
-                2.357183707,
-                2.926437776,
-                2.264362329,
-                1.986978454,
-                2.69679372,
-                2.179386658,
-                1.669834104,
-                1.751691531,
-                2.75780318,
-                2.896827026,
-                1.71150628,
-                1.919407662,
-                2.287023003,
-                2.626832087,
-                1.236710703,
-                1.524939303,
-                1.717932594
-        };
-        dataAccess.setIndependentVariables(independendValues);
-        dataAccess.setDependentVariable(dependendValues);
+        setDataAccessFromFile(dataAccess);
 
         Application application = new Application();
         System.out.println(application.execute(dataAccess, 30l, TimeUnit.SECONDS).getFormula(TABLE_NAME));
+    }
 
+    private static void setDataAccessFromFile(ExperimentalDataAccess dataAccess) throws IOException {
+        String fName = DATA_FILE_NAME;
+        String thisLine;
+        FileInputStream fis = new FileInputStream(fName);
+        DataInputStream myInput = new DataInputStream(fis);
+
+        int dataExmaples = countLines(fName) - 1;
+
+        int i=0;
+        myInput.readLine();
+        double[][] independendValues = new double[dataExmaples][3];
+        double[] dependendValues = new double[dataExmaples];
+        while ((thisLine = myInput.readLine()) != null) {
+            String line = thisLine.replace(",", ".");
+            String strar[] = line.split(";");
+            independendValues[i] = new double[]{ Double.valueOf(strar[0]), Double.valueOf(strar[1]), Double.valueOf(strar[2]) };
+            dependendValues[i] = Double.valueOf(strar[3]);
+            i++;
+        }
+
+        dataAccess.setIndependentVariables(independendValues);
+        dataAccess.setDependentVariable(dependendValues);
+    }
+
+
+    public static int countLines(String input) throws IOException {
+        try (InputStream is = new FileInputStream(input)) {
+            int count = 1;
+            for (int aChar = 0; aChar != -1;aChar = is.read())
+                count += aChar == '\n' ? 1 : 0;
+            return count;
+        }
     }
 }
