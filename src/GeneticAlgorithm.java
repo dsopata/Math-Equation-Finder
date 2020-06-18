@@ -9,7 +9,7 @@ import java.util.Random;
 public class GeneticAlgorithm {
 
     private static final int POPULATION_SIZE = 800;
-    private static final int POPULATION_ELITE = (int) Math.ceil(0.01 * POPULATION_SIZE);
+    private static final int POPULATION_ELITE = (int) Math.ceil(0.03 * POPULATION_SIZE);
     private static final int MUTATION_PROPABILITY_IN_PERCENTEGE = 2;
     private static final boolean SHOW_LOG = true;
 
@@ -44,6 +44,8 @@ public class GeneticAlgorithm {
         crossover();
         //mutowanie
         mutate();
+        Collections.sort(population);
+
         //podmiana najslabszych na losowe osobniki (o rozmiarze elity)
         appendNewChromosomes();
         //selekcja

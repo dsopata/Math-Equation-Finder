@@ -39,7 +39,7 @@ public class Main {
     }
 
 
-    public static int countLines(String input) throws IOException {
+    private static int countLines(String input) throws IOException {
         try (InputStream is = new FileInputStream(input)) {
             int count = 1;
             for (int aChar = 0; aChar != -1;aChar = is.read())
