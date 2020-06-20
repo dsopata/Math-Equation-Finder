@@ -18,7 +18,8 @@ public class Application implements ApplicationInterface {
             @Override
             public void run() {
                 //1. generowanie populacje
-                GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(dataAccess);
+                GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.getInstance();
+                geneticAlgorithm.prepareDataAccess(dataAccess);
                 geneticAlgorithm.generatePopulation();
                 //2. start algorytmu
 

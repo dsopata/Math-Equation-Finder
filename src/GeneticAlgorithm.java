@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class GeneticAlgorithm {
+public final class GeneticAlgorithm {
 
     private static final int POPULATION_SIZE = 800;
     private static final int POPULATION_ELITE = (int) Math.ceil(0.03 * POPULATION_SIZE);
@@ -14,14 +14,30 @@ public class GeneticAlgorithm {
     private static final boolean SHOW_LOG = true;
 
     private List<Chromosome> population = new ArrayList<>();
-    private final ExperimentalDataAccessIntereface dataAccess;
-    private final int numberOfIndependentVariables;
+    private ExperimentalDataAccessIntereface dataAccess;
+    private int numberOfIndependentVariables;
     private Random random = new Random();
     private static String currentBest = "";
 
-    public GeneticAlgorithm(ExperimentalDataAccessIntereface dataAccess) {
+    private static GeneticAlgorithm INSTANCE;
+
+    private GeneticAlgorithm() {
+        if(SHOW_LOG) {
+            System.out.println("GA initialized");
+        }
+    }
+
+    public static GeneticAlgorithm getInstance() {
+        if(INSTANCE == null) {
+             INSTANCE = new GeneticAlgorithm();
+        }
+
+        return INSTANCE;
+    }
+
+    public void prepareDataAccess(ExperimentalDataAccessIntereface dataAccess) {
         this.dataAccess = dataAccess;
-        this.numberOfIndependentVariables = dataAccess.getNumberOfIndependentVariables();
+        this.numberOfIndependentVariables = this.dataAccess.getNumberOfIndependentVariables();
     }
 
     public  void generatePopulation() {
