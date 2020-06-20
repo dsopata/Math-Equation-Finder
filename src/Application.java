@@ -20,9 +20,14 @@ public class Application implements ApplicationInterface {
                 //1. generowanie populacje
                 GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.getInstance();
                 geneticAlgorithm.prepareDataAccess(dataAccess);
-                geneticAlgorithm.generatePopulation();
-                //2. start algorytmu
 
+                try {
+                    geneticAlgorithm.generatePopulation();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //2. start algorytmu
                 //3. iteracje algorytmu:
                 int iterationIndex = 0;
                 while (LocalDateTime.now().isBefore(finishTime)) {

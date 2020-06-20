@@ -40,7 +40,10 @@ public final class GeneticAlgorithm {
         this.numberOfIndependentVariables = this.dataAccess.getNumberOfIndependentVariables();
     }
 
-    public  void generatePopulation() {
+    public  void generatePopulation() throws Exception {
+        if(dataAccess == null) {
+            throw new Exception("Data Access must be initialized");
+        }
         if(SHOW_LOG) {
             System.out.println("Generating population...");
         }
